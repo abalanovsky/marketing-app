@@ -78,7 +78,7 @@ export default function FormAccordion() {
         assigned_task_name: currentTask.taskName,
         layer_name: accordions[index].layerName,
         images: currentTask.images,
-        dimension: currentTask.dimension,
+        dimension: accordions[index].proportions,
         style: accordions[index].styles,
         manual_prompts: accordions[index].manualPrompts.join(', '),
         gen_per_ref: accordions[index].genPerRef,
@@ -96,7 +96,7 @@ export default function FormAccordion() {
         setAlert({
           open: true,
           severity: 'error',
-          message: `Failed to generate images!}`
+          message: `Failed to generate images!`
         })
       } finally {
         setLoading(false)
