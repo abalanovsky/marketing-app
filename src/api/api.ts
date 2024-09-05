@@ -6,13 +6,14 @@ import {
 } from '../interfaces/task.interface.ts'
 
 const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_PATH,
   headers: {
     Authorization: `Basic ${import.meta.env.VITE_API_KEY}`
   }
 })
 
 export const generateImages = (task: GenerateImagePayload) => {
-  return apiClient.post('/api/generate_images', task)
+  return apiClient.post('/generate_images', task)
 }
 
 export const generateFormats = (task: TaskData) => {
@@ -26,5 +27,5 @@ export const generateFormats = (task: TaskData) => {
     text_layers: task.text
   }
 
-  return apiClient.post('/api/generate_formats', requestPayload)
+  return apiClient.post('/generate_formats', requestPayload)
 }
