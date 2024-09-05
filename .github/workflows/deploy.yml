@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: npm run buildv
+        run: npm run build
         env:
           VITE_RESULTS_LINK: ${{ secrets.VITE_RESULTS_LINK }}
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
