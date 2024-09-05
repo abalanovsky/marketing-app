@@ -27,6 +27,7 @@ jobs:
         env:
           VITE_RESULTS_LINK: ${{ secrets.VITE_RESULTS_LINK }}
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+          VITE_API_PATH: ${{ secrets.VITE_API_PATH }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
