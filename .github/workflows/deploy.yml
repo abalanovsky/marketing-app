@@ -22,9 +22,10 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: npm run build
+        run: npm run buildv
         env:
-          APPVARIABLES: ${{ secrets.APPVARIABLES }}
+          VITE_RESULTS_LINK: ${{ secrets.VITE_RESULTS_LINK }}
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
