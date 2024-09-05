@@ -8,6 +8,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: 'github-pages'
 
     steps:
       - name: Checkout code
@@ -24,7 +25,8 @@ jobs:
       - name: Build project
         run: npm run build
         env:
-          APPVARIABLES: ${{ secrets.APPVARIABLES }}
+          VITE_RESULTS_LINK: ${{ secrets.VITE_RESULTS_LINK }}
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
