@@ -1,4 +1,8 @@
 import { GridColDef } from '@mui/x-data-grid'
+import Box from '@mui/material/Box'
+import { IconButton, Tooltip, Typography } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import { styles } from './TaskTable.styles.ts'
 
 export const COLUMNS: GridColDef[] = [
   {
@@ -21,7 +25,7 @@ export const COLUMNS: GridColDef[] = [
   {
     field: 'templateId',
     headerName: 'Template ID',
-    width: 200,
+    width: 150,
     editable: true,
     type: 'singleSelect',
     valueOptions: ['mwpswxcudtwxb', '0xdoscyowl50c']
@@ -32,7 +36,24 @@ export const COLUMNS: GridColDef[] = [
     type: 'string',
     width: 180,
     editable: false,
-    renderCell: (params) => params.row.images.join(', ')
+    renderCell: (params) => (
+      <Box>
+        <Box>
+          <Tooltip title='Add Image'>
+            <IconButton
+              size='small'
+              color='primary'
+              sx={styles.imageCellButton}
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+          <Typography component='span' sx={styles.imageCellText}>
+            {params.row.images.join(', ')}
+          </Typography>
+        </Box>
+      </Box>
+    )
   },
   {
     field: 'text',

@@ -10,8 +10,28 @@ export const styles = {
       color: 'text.primary'
     },
     '& .MuiDataGrid-root': {
-      borderRadius: '10px'
+      borderRadius: '10px',
+      '& .MuiDataGrid-cell:focus': {
+        outline: 'none'
+      }
     }
+  },
+  imageCellContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  imageCell: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  imageCellButton: {
+    outline: '0',
+    marginRight: '5px'
+  },
+  imageCellText: {
+    fontSize: '14px'
   },
   gridToolbarContainer: {
     p: '30px'

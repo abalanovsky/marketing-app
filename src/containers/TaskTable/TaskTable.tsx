@@ -21,7 +21,6 @@ import {
   GridToolbarContainer
 } from '@mui/x-data-grid'
 import { randomId } from '@mui/x-data-grid-generator'
-import { AutoAwesomeOutlined } from '@mui/icons-material'
 
 import { TasksContext } from '../../context/tasks-context.tsx'
 import { validateTableFields } from '../../utils/validator.ts'
@@ -31,7 +30,7 @@ import { useLoading } from '../../hooks/useLoading.tsx'
 import { TaskData } from '../../interfaces/task.interface.ts'
 import { styles } from './TaskTable.styles.ts'
 import { CardsDrawer } from '../../components/CardsDrawer/CardsDrawer.tsx'
-import { COLUMNS } from './TaskTable.constants.ts'
+import { COLUMNS } from './TaskTable.constants.tsx'
 
 interface EditToolbarProps {
   setTasks: (newRows: (oldRows: TaskData[]) => TaskData[]) => void
@@ -185,9 +184,6 @@ export default function TaskTable() {
       cellClassName: 'actions',
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit
-        const currentTask = tasks.find((task) => task.id === id)
-        const isValid = currentTask && validateTableFields(currentTask)
-        const isDisabled = currentTask?.images.length === 0 || !isValid
 
         if (isInEditMode) {
           return [
@@ -217,20 +213,6 @@ export default function TaskTable() {
             onClick={handleEditClick(id)}
             color='inherit'
           />,
-          <Tooltip
-            title={isDisabled ? 'All fields must be filled' : 'Generate task'}
-          >
-            <span>
-              <GridActionsCellItem
-                icon={<AutoAwesomeOutlined />}
-                label='Generate'
-                className='textPrimary'
-                onClick={handleGenerateClick(id)}
-                color='inherit'
-                disabled={isDisabled}
-              />
-            </span>
-          </Tooltip>,
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label='Delete'
@@ -238,6 +220,38 @@ export default function TaskTable() {
             color='inherit'
           />
         ]
+      }
+    },
+    {
+      field: 'generateTask',
+      headerName: 'Generate',
+      type: 'string',
+      width: 110,
+      editable: false,
+      renderCell: (params) => {
+        const currentTask = tasks.find((task) => task.id === params.id)
+        const isValid = currentTask && validateTableFields(currentTask)
+        const isDisabled = currentTask?.images.length === 0 || !isValid
+        return (
+          <Tooltip
+            title={isDisabled ? 'All fields must be filled' : 'Generate task'}
+          >
+            <span>
+              <Button
+                variant='contained'
+                size='small'
+                color='primary'
+                disabled={isDisabled}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleGenerateClick(params.id)
+                }}
+              >
+                Generate
+              </Button>
+            </span>
+          </Tooltip>
+        )
       }
     },
     {
@@ -276,7 +290,6 @@ export default function TaskTable() {
         rowModesModel={rowModesModel}
         disableColumnSorting
         disableColumnMenu
-        disableColumnResize
         onRowClick={handleRowClick}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
