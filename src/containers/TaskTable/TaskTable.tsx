@@ -84,7 +84,7 @@ export default function TaskTable() {
   const handleOpen = () => setOpen(true)
   const { setLoading, LoadingComponent } = useLoading()
 
-  const handleGenerateClick = (id: GridRowId) => async () => {
+  const handleGenerateClick = async (id: GridRowId) => {
     const currentTask = tasks.find((task) => task.id === id)
     if (!currentTask) return
 
@@ -242,9 +242,9 @@ export default function TaskTable() {
                 size='small'
                 color='primary'
                 disabled={isDisabled}
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.stopPropagation()
-                  handleGenerateClick(params.id)
+                  await handleGenerateClick(params.id)
                 }}
               >
                 Generate
